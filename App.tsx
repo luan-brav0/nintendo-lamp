@@ -1,18 +1,25 @@
-import { Image } from 'expo-image';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
+import { View, Text } from 'react-native';
+import Main from './source/pages/Main';
+import React, { useState } from 'react';
 
 import { NativeWindStyleSheet } from "nativewind";
+
+// Nativewind fix for web css
 NativeWindStyleSheet.setOutput({
     default: "native",
 });
 
-export default function App() {
+const App: React.FC = () => {
+    const [paired ,setPaired] = useState<boolean>(true);
+    const [logged ,setLogged] = useState<boolean>(true);
+
     return (
         <View className='bg-slate-950 flex-1 justify-center items-center'>
-            <Text className='text-slate-50 p-6 font-bold'>LUL Starting Expo Template</Text>
-            <Image className='w-[400] h-[400]' source={require('./source/assets/maxwell-the-cat.gif')}/>
+            <Main logged={logged} paired={paired}/>
             <StatusBar style="auto" />
         </View>
     );
-}
+};
+
+export default App;
