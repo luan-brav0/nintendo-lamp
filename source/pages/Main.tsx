@@ -38,7 +38,9 @@ const Main: React.FC<MainProps> = (mainProps) => {
                 iconName = "ProfileIco";
                 break;
             }
-            return <Image source={require(`${iconName}.svg`)} />;
+            return (
+              <Image source={require(`../images/icons/${iconName}.svg`)} />
+            );
           },
           tabBarActiveTintColor: "white",
           tabBarInactiveTintColor: "#E98F93",
