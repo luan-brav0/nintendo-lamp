@@ -3,23 +3,15 @@ import { Text, View, ViewProps } from "react-native";
 import { NativeWindStyleSheet } from "nativewind";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Home from "./screens/Home";
+import Settings from "./screens/Settings";
+import Profile from "./screens/Profile";
+import { Image } from "expo-image";
 
 // Nativewind fix for web css
 NativeWindStyleSheet.setOutput({
   default: "native",
 });
-
-function handleMain(paired: boolean, logged: boolean) {
-  if (!logged) {
-    if (!paired) {
-      return <Text>Main</Text>;
-    } else {
-      return <Text>not paired</Text>;
-    }
-  } else {
-    return <Text>not logged</Text>;
-  }
-}
 
 const Tab = createBottomTabNavigator();
 
@@ -30,9 +22,32 @@ interface MainProps extends ViewProps {
 const Main: React.FC<MainProps> = (mainProps) => {
   return (
     <NavigationContainer>
-      <View className={`flex-1 justify-center items-center`}>
-        {handleMain(mainProps.paired, mainProps.logged)}
-      </View>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: () => {
+            let iconName;
+
+            switch (route.name) {
+              case "Home":
+                iconName = "HomeIco";
+                break;
+              case "Settings":
+                iconName = "SettingsIco";
+                break;
+              case "Profile":
+                iconName = "ProfileIco";
+                break;
+            }
+            return <Image source={require(`${iconName}.svg`)} />;
+          },
+          tabBarActiveTintColor: "white",
+          tabBarInactiveTintColor: "#E98F93",
+        })}
+      >
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Settings" component={Settings} />
+        <Tab.Screen name="Profile" component={Profile} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };
