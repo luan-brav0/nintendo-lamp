@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Main from "./source/pages/Main";
@@ -10,7 +10,7 @@ const handleMain: FC<{ paired: boolean; logged: boolean }> = ({
 }) => {
   if (logged) {
     if (paired) {
-      return <Main logged={logged} paired={paired} />;
+      return <Main />;
     } else {
       return <Text>not paired</Text>;
     }
@@ -24,10 +24,10 @@ const App: FC = () => {
   const [logged, setLogged] = useState<boolean>(true);
 
   return (
-    <SafeAreaView className="flex-1 justify-center items-center">
+    <>
       {handleMain({ paired, logged })}
       <StatusBar style="auto" />
-    </SafeAreaView>
+    </>
   );
 };
 
