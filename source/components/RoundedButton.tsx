@@ -1,58 +1,45 @@
-import { FC, useState } from "react";
-import { Text, TouchableHighlight } from "react-native";
-import { NavigationScreenProp } from "react-navigation";
+import { FC, useEffect, useState } from "react";
+import {
+  ColorValue,
+  Text,
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native";
 
-type Color = "red" | "white" | "black";
 interface RoundedButtonProps {
   content: string;
-  mainColor: Color;
-  secondaryColor: Color;
-  paddingX?: number;
-  paddingY?: number;
-  navigation?: NavigationScreenProp<any, any>;
-  route?: string;
+  mainColor: ColorValue;
+  secondaryColor: ColorValue;
+  navigation?: () => boolean;
 }
-
 const RoundedButton: FC<RoundedButtonProps> = ({
   content,
   mainColor,
   secondaryColor,
-  paddingX,
-  paddingY,
-  route,
   navigation,
 }) => {
-  const [isButtonPressed, setIsButtonPressed] = useState<boolean>(false);
-  let underlay: string | undefined;
-  if (secondaryColor === "red") {
-    underlay = "#CF010B";
-  } else if (secondaryColor === "black") {
-    underlay = "#000000";
-  } else {
-    underlay = "#FFFFFF";
-  }
+  const [isPressed, setIsPressed] = useState<boolean>(false);
+  const [textStyle, setTextStyle] = useState<string>(
+    `text-[${secondaryColor.toString()}]`
+  );
+  useEffect(() => {
+    if (isPressed) {
+      return setTextStyle(`text-[${mainColor.toString()}]`);
+    } else {
+      return setTextStyle(`text-[${secondaryColor.toString()}]`);
+    }
+  }, [isPressed]);
 
   return (
-    <TouchableHighlight
-      className={`bg-${mainColor} border border-${secondaryColor} rounded-full px-${paddingX?.toString()} py-${paddingY?.toString()}`}
-      underlayColor={underlay}
-      onPressIn={() => {
-        setIsButtonPressed(true);
-      }}
-      onPressOut={() => {
-        setIsButtonPressed(false);
-      }}
-      onPress={() => navigation?.navigate("")}
+    <TouchableOpacity
+      className={`bg-[${mainColor.toString()}] border border-[${secondaryColor.toString()}] flex flex-row justify-center items-center rounded-full w-4/5 px-auto py-4`}
+      // underlayColor={secondaryColor}
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
+      onPress={navigation}
     >
-      <Text
-        className={`${
-          isButtonPressed ? `text-${mainColor}` : `text-${secondaryColor}`
-        }`}
-      >
-        {content}
-      </Text>
-    </TouchableHighlight>
+      <Text className={textStyle}>{content}</Text>
+    </TouchableOpacity>
   );
 };
-
 export default RoundedButton;

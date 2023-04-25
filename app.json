@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "lul-yarn-expo-tailwind",
-    "slug": "lul-yarn-expo-tailwind",
+    "name": "super-lamp",
+    "slug": "super-lamp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./source/assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "auto",
     "splash": {
       "image": "./source/assets/splash.png",
       "resizeMode": "contain",
@@ -15,16 +15,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.luanbrav0.superlamp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./source/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.luanbrav0.superlamp"
     },
     "web": {
       "favicon": "./source/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8b79f6f0-b389-42b4-ba5e-63b8d144822c"
+      }
     }
   }
 }

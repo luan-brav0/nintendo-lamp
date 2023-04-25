@@ -5,10 +5,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./screens/Home";
 import Settings from "./screens/Settings";
 import Profile from "./screens/Profile";
-import { Image } from "expo-image";
-import { View } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-
+import { colors } from "../components/colors";
 // Nativewind fix for web css
 NativeWindStyleSheet.setOutput({
   default: "native",
@@ -25,7 +23,7 @@ const Main: FC = () => {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, size, color }) => {
+          tabBarIcon: ({ size, color }) => {
             if (route.name === "Home") {
               iconName = "home";
             } else if (route.name === "Settings") {
@@ -37,11 +35,14 @@ const Main: FC = () => {
             }
             return <MaterialIcons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: "white",
-          tabBarInactiveTintColor: "#E98F93",
-          tabBarStyle: { backgroundColor: "#CF010B" },
+          tabBarActiveTintColor: colors.white.toString(),
+          tabBarInactiveTintColor: colors.dimRed.toString(),
+          tabBarStyle: { backgroundColor: colors.red },
           tabBarShowLabel: false,
           // headerShown: false
+          headerStyle: { backgroundColor: colors.red },
+          headerTitleContainerStyle: { alignSelf: "center" },
+          headerTitleStyle: { color: colors.white },
         })}
       >
         <Tab.Screen name="Home" component={Home} />
